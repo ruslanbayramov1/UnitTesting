@@ -1,5 +1,7 @@
-﻿using ConsoleApp.Services.Interfaces;
+﻿using ConsoleApp.Models;
+using ConsoleApp.Services.Interfaces;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleApp.Tests.ServicesTests;
@@ -38,5 +40,35 @@ public class OperationServiceTests
 
         //Assert
         act.Should().Throw<Exception>();
+    }
+
+    [Fact]
+    public void OperationService_GetCurrentDate_IsTrueValue_ReturnsDate()
+    { 
+        //Arrange
+        var testDate = 1.January(2025);
+
+        //Act
+        var date = _operationService.GetCurrentDate();
+
+        //Assert
+        date.Should().BeAfter(testDate);
+    }
+
+    [Fact]
+    public void OperationService_GetStudent_IsValidData_ReturnsStudent()
+    {
+        //Arrange
+
+        //Act
+        var student = _operationService.GetObjectById(Guid.Parse("3f2504e0-4f89-11d3-9a0c-0305e82c3301")) as Student;
+
+        //Assert
+        student.Should().NotBeNull();
+        student.Should().BeOfType<Student>();
+        student.Name.Should().NotBeNullOrWhiteSpace();
+        student.Surname.Should().NotBeNullOrWhiteSpace();
+        student.GroupCode.Should().NotBeNullOrWhiteSpace();
+        student.Id.Should().NotBe("00000000-0000-0000-0000-000000000000");
     }
 }
