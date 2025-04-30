@@ -1,6 +1,8 @@
-﻿namespace ConsoleApp.Utils;
+﻿using ConsoleApp.Services.Interfaces;
 
-public class Operation
+namespace ConsoleApp.Services.Implements;
+
+public class OperationService : IOperationService
 {
     public int SumArr(int[] nums)
     {
